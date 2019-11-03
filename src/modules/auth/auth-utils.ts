@@ -1,10 +1,6 @@
-// import Cookie from 'js-cookie';
-// import { ACCESS_TOKEN_COOKIE_KEY } from './auth-consts';
+import AsyncStorage from '@react-native-community/async-storage';
+
 const ACCESS_TOKEN_STORE_KEY = '@auth-token';
-
-// export const getCurrentAuthorizationToken = () => Cookie.get(ACCESS_TOKEN_COOKIE_KEY);
-
-import { AsyncStorage } from 'react-native';
 
 export const getAuthToken = async () => {
   try {

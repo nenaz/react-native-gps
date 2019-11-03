@@ -1,5 +1,5 @@
 import { get, includes } from 'lodash';
-import { routePages } from '../../routes';
+import { ROUTES } from '../../route-utils';
 import { USER_ROLES } from '../auth';
 
 interface IRedirect {
@@ -14,7 +14,7 @@ export const redirectToPage = ({
   userRole,
 }: IRedirect) => {
   // дописать проверку на отсутствие navigate
-  if (pageName && includes(routePages, pageName)) {
+  if (pageName && includes(ROUTES, pageName)) {
     navigate(pageName);
     return false;
   }

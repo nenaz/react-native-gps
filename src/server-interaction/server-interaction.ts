@@ -7,6 +7,7 @@ export const Send = (name: string, params = {}, type = 'POST') => {
   const serverUrl = deployMode
     ? 'https://gps-mongo-server.herokuapp.com/'
     : 'http://127.0.0.1:5000/';
+  console.log('serverUrl', serverUrl);
   return fetch(`${serverUrl}${name}`, {
       method: type,
       mode: 'cors',

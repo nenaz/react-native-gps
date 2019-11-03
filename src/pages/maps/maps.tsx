@@ -19,6 +19,11 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+    position: 'relative',
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    top: 50,
   },
  });
 
@@ -32,28 +37,32 @@ const styles = StyleSheet.create({
     } = this.props;
 
     return (
-      <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          region={{
-            latitude: coordinates.latitude,
-            longitude: coordinates.longitude,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}
-        >
-        </MapView>
-        <Button
-          title="GetNew"
-          onPress={fetchCoordinates}
-          disabled={gpsButtonDisabled}
-        />
-        <Button
-          title="Stop"
-          onPress={stopCoordinates}
-          disabled={!gpsButtonDisabled}
-        />
-      </View>
+      <>
+        <View style={styles.container}>
+          <MapView
+            style={styles.map}
+            region={{
+              latitude: coordinates.latitude,
+              longitude: coordinates.longitude,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.0121,
+            }}
+          >
+          </MapView>
+        </View>
+        {/* <View>
+          <Button
+            title="GetNew"
+            onPress={fetchCoordinates}
+            disabled={gpsButtonDisabled}
+          />
+          <Button
+            title="Stop"
+            onPress={stopCoordinates}
+            disabled={!gpsButtonDisabled}
+          />
+        </View> */}
+      </>
     );
   }
 }

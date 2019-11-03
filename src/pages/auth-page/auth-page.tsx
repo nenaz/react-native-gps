@@ -1,12 +1,15 @@
 import * as React from 'react';
 import {
   // Button,
-  StyleSheet,
+  // StyleSheet,
   View,
   TextInput,
+  StatusBar,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Button } from 'react-native-elements';
+import { Button, Input } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { auhtStyles } from './auth-page-styles';
 
 interface TAuthPage {
   onPressButton: () => void,
@@ -19,43 +22,36 @@ interface TAuthPage {
 export class AuthPage extends React.PureComponent<TAuthPage> {
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput
-          style={{
-            height: 40,
-            width: '55%',
-            paddingLeft: 6,
-          }}
-          underlineColorAndroid="#428AF8"
-          placeholder="Login"
+      <View style={auhtStyles.container}>
+        <Input
+          placeholder='Login'
+          containerStyle={auhtStyles.inputContainerStyle}
           onChangeText={this.props.onChangeLogin}
           value={this.props.login}
+          inputStyle={auhtStyles.inputStyle}
         />
-        <TextInput
-          style={{
-            height: 40,
-            width: '50%',
-            paddingLeft: 6,
-          }}
-          underlineColorAndroid="#428AF8"
+        <Input
           placeholder="Password"
+          containerStyle={auhtStyles.inputContainerStyle}
           onChangeText={this.props.onChangePassword}
           value={this.props.password}
+          inputStyle={auhtStyles.inputStyle}
         />
         <Button
           title='Войти'
+          titleStyle={{
+            color: 'black',
+          }}
           onPress={this.props.onPressButton}
+          containerStyle={{
+            height: 40,
+            width: '55%',
+            marginTop: 10,
+            backgroundColor: '#fff',
+          }}
+          type="outline"
         />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#727272',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});

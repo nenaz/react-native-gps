@@ -1,13 +1,12 @@
-import { AboutPage } from "./pages/about";
+// import { AboutPage } from "./pages/about";
 import { AuthPage } from "./pages/auth-page";
 import { Maps } from "./pages/maps";
 import { ReceiverPage } from "./pages/receiver-page";
+import { ROUTES } from './route-utils';
 
-export const routes = {
-  Auth: {screen: AuthPage},
-  About: {screen: AboutPage},
-  Maps: {screen: Maps},
-  Receiver: {screen: ReceiverPage},
+export const appRoutes = {
+  // About: {screen: AboutPage},
+  [ROUTES.AUTH]: {screen: AuthPage},
+  [ROUTES.MAPS]: {screen: Maps},
+  [ROUTES.RECEIVER]: {screen: ReceiverPage},
 };
-
-export const routePages: string[] = Object.keys(routes);

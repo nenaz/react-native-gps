@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-// import { redirectToPage } from '../../modules/redirect/redirect';
+import { redirectToPage } from '../../modules/redirect/redirect';
 import { AuthPage } from './auth-page';
 import { IAuthPageController } from './auth-page-types';
 import { fetchAuth } from './auth-page-actions';
+import { getUserRole } from './auth-page-selectors';
 import { View } from 'react-native';
 import { Text } from 'react-native-elements';
+// import { redirectToPage } from '../../modules/redirect/redirect';
 
 class AuthPageComponent extends React.PureComponent<IAuthPageController> {
   state = {
@@ -20,9 +22,9 @@ class AuthPageComponent extends React.PureComponent<IAuthPageController> {
   onPressButton = async () => {
     const { navigate } = this.props.navigation;
     const { login, password } = this.state;
-    // const userRole = await this.props.fetchAuth({ login, password });
-    navigate('Maps');
-    // redirectToPage({ navigate, userRole });
+    await this.props.fetchAuth({ login, password });
+    // navigate('Maps');
+    redirectToPage({ navigate, userRole: this.props.userRole });
   };
   
   render() {
@@ -42,7 +44,9 @@ class AuthPageComponent extends React.PureComponent<IAuthPageController> {
   }
 }
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  userRole: getUserRole,
+});
 
 const mapDispatchToProps = {
   fetchAuth,
