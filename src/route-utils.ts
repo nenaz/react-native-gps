@@ -1,6 +1,7 @@
 
 export const ROUTES = Object.freeze({
   AUTH: 'Auth',
-  MAPS: 'Maps',
+  MAP: 'Map',
   RECEIVER: 'Receiver',
+  REGISTRATION: 'Registration',
 });

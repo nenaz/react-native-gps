@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.2",
+    "@react-native-community/geolocation": "^2.0.2",
     "@types/lodash": "^4.14.144",
     "@types/react-redux": "^7.1.5",
     "lodash": "^4.17.15",

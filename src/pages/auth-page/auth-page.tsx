@@ -10,11 +10,13 @@ import { connect } from 'react-redux';
 import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { auhtStyles } from './auth-page-styles';
+import { AuthRegistrationView } from './views/auth-registration-view';
 
 interface TAuthPage {
   onPressButton: () => void,
   onChangeLogin: (login: string) => void,
   onChangePassword: (pawwsord: string) => void,
+  onRegistrationHandler: () => void,
   login: string,
   password: string,
 }
@@ -24,7 +26,7 @@ export class AuthPage extends React.PureComponent<TAuthPage> {
     return (
       <View style={auhtStyles.container}>
         <Input
-          placeholder='Login'
+          placeholder='Login1'
           containerStyle={auhtStyles.inputContainerStyle}
           onChangeText={this.props.onChangeLogin}
           value={this.props.login}
@@ -43,13 +45,11 @@ export class AuthPage extends React.PureComponent<TAuthPage> {
             color: 'black',
           }}
           onPress={this.props.onPressButton}
-          containerStyle={{
-            height: 40,
-            width: '55%',
-            marginTop: 10,
-            backgroundColor: '#fff',
-          }}
+          containerStyle={auhtStyles.buttonContainerStyle}
           type="outline"
+        />
+        <AuthRegistrationView
+          onRegistrationHandler={this.props.onRegistrationHandler}
         />
       </View>
     );

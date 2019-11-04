@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const auhtStyles = StyleSheet.create({
+export const registrationStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#727272',

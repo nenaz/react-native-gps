@@ -15,66 +15,33 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import { name as appName } from './app.json';
 import { store } from './src/store';
-import { appRoutes } from './src/routes';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { AppRoutesNavigator } from './src/routes';
+// import { appRoutes, authSwitchNavigator } from './src/routes';
+// import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 
-const MainNavigator = createStackNavigator(
-  appRoutes,
-  {
-    initialRouteName: 'Auth',
-    defaultNavigationOptions: {
-      headerStyle: {
-        display: 'none',
-      },
-    },
-  },
-);
+// const MainNavigator = createStackNavigator(
+//   appRoutes,
+//   {
+//     initialRouteName: 'Auth',
+//     defaultNavigationOptions: {
+//       headerStyle: {
+//         display: 'none',
+//       },
+//     },
+//   },
+// );
 
-// const MainNavigator = createSwitchNavigator(routes);
-const Component = createAppContainer(MainNavigator);
+// const MainNavigator = createSwitchNavigator(authSwitchNavigator);
+// const Component = createAppContainer(MainNavigator);
 
+// @ts-ignore 
 const App: () => React$Node = () => {
-  // console.log('Component', Component);
   return (
-    // <View><Text>text</Text></View>
     <>
       <StatusBar />
-        {/* <Header
-          containerStyle={{
-            height: 50,
-            marginTop: 0,
-            padding: 0,
-          }}        
-          leftComponent={{
-            icon: 'menu',
-            color: '#fff',
-            style: {
-              marginTop: -20,
-            },
-          }}
-          centerComponent={{
-            text: 'MY TITLE',
-            style: {
-              color: '#fff',
-              // height: 300,
-              marginTop: -20,
-            },
-          }}
-          rightComponent={{ icon: 'home', color: '#fff' }}
-        /> */}
       <Provider store={store}>
-        <Component />
-        {/* <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: 57.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-          provider={PROVIDER_GOOGLE}
-        ></MapView> */}
+        <AppRoutesNavigator />
       </Provider>
     </>
   );
@@ -84,9 +51,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#727272',
-  },
-  map: {
-    flex: 1
   }
 });
 

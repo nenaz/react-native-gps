@@ -12,7 +12,7 @@ export const getAuthToken = async () => {
   }
 };
 
-export const setAuthToken = async (key) => {
+export const setAuthToken = async (key: string) => {
   try {
     await AsyncStorage.setItem(ACCESS_TOKEN_STORE_KEY, key)
   } catch (error) {

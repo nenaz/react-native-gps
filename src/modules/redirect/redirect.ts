@@ -23,7 +23,7 @@ export const redirectToPage = ({
       navigate('Receiver');
       return false;
     default:
-      navigate('Maps');
+      navigate('Map');
       return false;
   }
 };

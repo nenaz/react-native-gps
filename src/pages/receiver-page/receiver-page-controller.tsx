@@ -15,6 +15,13 @@ interface IReceiverPage {
 };
 
 class ReceiverPagerControllerComponent extends React.PureComponent<IReceiverPage> {
+  static navigationOptions = {
+    title: 'Welcome to the app!',
+    headerStyle: {
+      backgroundColor: '#fff444',
+      display: 'none',
+    },
+  };
   // componentDidMount() {
   //   this.props.fetchAllUsers();
   // }

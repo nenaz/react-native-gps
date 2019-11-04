@@ -2,7 +2,7 @@ import * as React from 'react';
 import { map } from 'lodash';
 // import { Page } from '@/components/page';
 import { IUser, TFollowUserParams } from './receiver-page-types';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 // import styles from './receiver-page.module.scss';
 // import { ReceiverPageRow } from './receiver-page-row';
 
@@ -32,7 +32,7 @@ export class ReceiverPage extends React.PureComponent<IReceiverPage> {
     //   );
     // // }
     return(
-      <View></View>
+      <View><Text>ReceiverPage</Text></View>
     );
   }
 }

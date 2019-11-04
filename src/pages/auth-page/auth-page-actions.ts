@@ -16,13 +16,10 @@ export const fetchAuth = ({ login, password }: TFetchAuth) => (dispatch: Dispatc
   return Send('authUser', {
     username: login,
     password,
-  }).then(async (response: any) => {
-    console.log('response', response);
-    // const authToken = await getAuthToken();
+  }).then((response: any) => {
     setAuthToken(response.token);
     dispatch({
       type: AUTH_USER,
-      // payload: omit(response, 'token'),
       payload: response,
     });
     // spinnerHide();
