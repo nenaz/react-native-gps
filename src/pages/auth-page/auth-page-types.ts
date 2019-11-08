@@ -5,4 +5,6 @@ export interface IAuthPageController {
   userRole: string,
   onRegistrationHandler: () => void,
   fetchCurrentPosition: () => void,
+  spinnerShow: () => void,
+  spinnerHide: () => void,
 };

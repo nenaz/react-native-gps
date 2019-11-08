@@ -6,5 +6,5 @@ const authPageState = (state: any) => state[AUTH_PAGE_STORE_KEY];
 
 export const getUserRole = createSelector(
   authPageState,
-  (state: any): string => get(state, 'userRole')
+  (state: any): string => get(state, 'auth.userRole')
 )

@@ -2,19 +2,21 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { redirectToPage } from '../../modules/redirect/redirect';
-import { fetchCurrentPosition } from '../../modules/coordinates';
+import {
+  fetchCurrentPosition,
+  startWatchPosition,
+  stopWatchPosition,
+} from '../../modules/coordinates';
+// import { spinnerShow, spinnerHide } from '../../modules/spinner';
 import { AuthPage } from './auth-page';
 import { IAuthPageController } from './auth-page-types';
 import { fetchAuth } from './auth-page-actions';
 import { getUserRole } from './auth-page-selectors';
-// import { View } from 'react-native';
-// import { Text } from 'react-native-elements';
-// import { redirectToPage } from '../../modules/redirect/redirect';
 
 class AuthPageComponent extends React.PureComponent<IAuthPageController> {
   state = {
-    login: '',
-    password: '',
+    login: 'nenaz',
+    password: '4276',
   };
 
   static navigationOptions = {
@@ -33,9 +35,18 @@ class AuthPageComponent extends React.PureComponent<IAuthPageController> {
   onChangePassword = (password: string) => this.setState({ password });
 
   onPressButton = async () => {
-    const { navigate } = this.props.navigation;
+    const {
+      spinnerShow,
+      spinnerHide,
+      navigation,
+    } = this.props;
+    const { navigate } = navigation;
     const { login, password } = this.state;
+
+    spinnerShow();
     await this.props.fetchAuth({ login, password });
+    spinnerHide();
+    console.log('user role', this.props.userRole);
     redirectToPage({ navigate, userRole: this.props.userRole });
   };
 
@@ -52,6 +63,8 @@ class AuthPageComponent extends React.PureComponent<IAuthPageController> {
         onRegistrationHandler={this.onRegistrationHandler}
         login={this.state.login}
         password={this.state.password}
+        handleSpinnerShow={this.props.spinnerShow}
+        handleSpinnerHide={this.props.spinnerHide}
       />
       // <span>TEst</span>
       // <View>
@@ -68,6 +81,10 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
   fetchAuth,
   fetchCurrentPosition,
+  spinnerShow: startWatchPosition,
+  spinnerHide: stopWatchPosition,
+  // spinnerShow,
+  // spinnerHide,
 };
 
 export const AuthPageController = connect(
