@@ -14,7 +14,7 @@ export const redirectToPage = ({
   userRole,
 }: IRedirect) => {
   // дописать проверку на отсутствие navigate
-  if (pageName && includes(ROUTES, pageName)) {
+  if (!!userRole && pageName && includes(ROUTES, pageName)) {
     navigate(pageName);
     return false;
   }

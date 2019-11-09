@@ -7,7 +7,7 @@ import {
   startWatchPosition,
   stopWatchPosition,
 } from '../../modules/coordinates';
-// import { spinnerShow, spinnerHide } from '../../modules/spinner';
+import { spinnerShow, spinnerHide } from '../../modules/spinner';
 import { AuthPage } from './auth-page';
 import { IAuthPageController } from './auth-page-types';
 import { fetchAuth } from './auth-page-actions';
@@ -81,10 +81,10 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
   fetchAuth,
   fetchCurrentPosition,
-  spinnerShow: startWatchPosition,
-  spinnerHide: stopWatchPosition,
-  // spinnerShow,
-  // spinnerHide,
+  // spinnerShow: startWatchPosition,
+  // spinnerHide: stopWatchPosition,
+  spinnerShow,
+  spinnerHide,
 };
 
 export const AuthPageController = connect(

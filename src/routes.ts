@@ -9,22 +9,26 @@ import { createStackNavigator } from "react-navigation-stack";
 const authSwitch = {
   [ROUTES.AUTH]: {screen: AuthPage},
   [ROUTES.REGISTRATION]: { screen: RegistrationPage },
+  [ROUTES.MAP]: {screen: MapPage},
+  /**/
+  [ROUTES.RECEIVER]: {screen: ReceiverPage},
 };
 export const authSwitchNavigator = createStackNavigator(authSwitch);
 
-const appSwitch = {
-  // [ROUTES.AUTH]: authSwitchNavigator,
-  [ROUTES.MAP]: {screen: MapPage},
-  // [ROUTES.RECEIVER]: {screen: ReceiverPage},
-};
-export const appSwitchNavigator = createStackNavigator(appSwitch);
+// const mapPageSwitch = {
+//   [ROUTES.MAP]: {screen: MapPage},
+// };
+// const mapSwitchNavigator = createStackNavigator(mapPageSwitch);
+
+// const receiverSwitchNavigator = createStackNavigator({
+//   [ROUTES.RECEIVER]: {screen: ReceiverPage},
+// });
 
 const appRoutes = {
   [ROUTES.AUTH]: authSwitchNavigator,
-  [ROUTES.MAP]: appSwitchNavigator,
-  [ROUTES.RECEIVER]: {screen: ReceiverPage},
+  // [ROUTES.MAP]: mapSwitchNavigator,
+  // [ROUTES.RECEIVER]: receiverSwitchNavigator,
 };
-const MainNavigator = createStackNavigator(appRoutes);
 
 export const AppRoutesNavigator = createAppContainer(
   createSwitchNavigator(

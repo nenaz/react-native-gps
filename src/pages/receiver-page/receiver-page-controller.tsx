@@ -1,61 +1,58 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-// import { routeToPage } from '@/modules/routes';
-// import { getUsers } from './receiver-page-selectors';
 import { ReceiverPage } from './receiver-page';
-// import { fetchAllUsers, setActiveUser } from './receiver-page-actions';
+import { fetchUsersOnline, setActiveUser } from './receiver-page-actions';
 import { IUser, TFollowUserParams } from './receiver-page-types';
+import { getUsersOnline } from './receiver-page-selectors';
+import { redirectToPage } from '../../modules/redirect/redirect';
 
 interface IReceiverPage {
-  // users: IUser[],
-  // fetchAllUsers: () => void,
-  // followUser?: (params: TFollowUserParams) => void,
-  // setActiveUser: (params: TFollowUserParams) => void,
+  usersOnline: IUser[],
+  navigation: any,
+  fetchUsersOnline: () => void,
+  setActiveUser: (params: TFollowUserParams) => void,
 };
 
 class ReceiverPagerControllerComponent extends React.PureComponent<IReceiverPage> {
   static navigationOptions = {
-    title: 'Welcome to the app!',
+    title: 'Receiver page',
     headerStyle: {
       backgroundColor: '#fff444',
-      display: 'none',
     },
   };
-  // componentDidMount() {
-  //   this.props.fetchAllUsers();
-  // }
 
-  // routeToPage = (pageName: string) =>{
-    
-  // };
+  componentDidMount() {
+    this.props.fetchUsersOnline();
+  }
 
-  // followUser = (params: TFollowUserParams) => {
-  //   console.log('id', params);
-  //   this.props.setActiveUser(params);
-  //   this.routeToPage('mapPage');
-  // }
+  observeUser = (params: TFollowUserParams) => {
+    const { navigation, setActiveUser } = this.props;
+    const { navigate } = navigation;
+
+    setActiveUser(params);
+    redirectToPage({ navigate, pageName: 'Map' });
+  }
   
   render() {
-    // const { users } = this.props;
+    const { usersOnline } = this.props;
 
     return(
       <ReceiverPage
-        // users={users}
-        // handlefollowUser={this.followUser}
+        usersOnline={usersOnline}
+        handleObserveUser={this.observeUser}
       />
     );
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  // users: getUsers,
-  // stateShowMapPage: getStateMapPage,
+  usersOnline: getUsersOnline,
 });
 
 const mapDispatchToProps = {
-  // setActiveUser,
-  // fetchAllUsers,
+  setActiveUser,
+  fetchUsersOnline,
 };
 
 export const ReceiverPagerController = connect(
