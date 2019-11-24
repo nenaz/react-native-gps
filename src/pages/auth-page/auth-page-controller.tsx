@@ -4,14 +4,14 @@ import { createStructuredSelector } from 'reselect';
 import { redirectToPage } from '../../modules/redirect/redirect';
 import {
   fetchCurrentPosition,
-  startWatchPosition,
+  // startWatchPosition,
   stopWatchPosition,
 } from '../../modules/coordinates';
 import { spinnerShow, spinnerHide } from '../../modules/spinner';
+import { getUserRole } from '../../modules/users';
 import { AuthPage } from './auth-page';
 import { IAuthPageController } from './auth-page-types';
 import { fetchAuth } from './auth-page-actions';
-import { getUserRole } from './auth-page-selectors';
 
 class AuthPageComponent extends React.PureComponent<IAuthPageController> {
   state = {
@@ -28,7 +28,7 @@ class AuthPageComponent extends React.PureComponent<IAuthPageController> {
   };
 
   componentDidMount() {
-    this.props.fetchCurrentPosition();
+    // this.props.fetchCurrentPosition();
   }
 
   onChangeLogin = (login: string) => this.setState({ login });
@@ -43,10 +43,9 @@ class AuthPageComponent extends React.PureComponent<IAuthPageController> {
     const { navigate } = navigation;
     const { login, password } = this.state;
 
-    spinnerShow();
+    // spinnerShow();
     await this.props.fetchAuth({ login, password });
-    spinnerHide();
-    console.log('user role', this.props.userRole);
+    // spinnerHide();
     redirectToPage({ navigate, userRole: this.props.userRole });
   };
 
@@ -66,10 +65,6 @@ class AuthPageComponent extends React.PureComponent<IAuthPageController> {
         handleSpinnerShow={this.props.spinnerShow}
         handleSpinnerHide={this.props.spinnerHide}
       />
-      // <span>TEst</span>
-      // <View>
-      //   <Text>Auth page</Text>
-      // </View>
     );
   }
 }
@@ -81,8 +76,6 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
   fetchAuth,
   fetchCurrentPosition,
-  // spinnerShow: startWatchPosition,
-  // spinnerHide: stopWatchPosition,
   spinnerShow,
   spinnerHide,
 };

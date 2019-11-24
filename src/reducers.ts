@@ -6,9 +6,14 @@ import { RECEIVER_PAGE_STORE_KEY, ReceiverPageReducer } from './pages/receiver-p
 import { AuthPageReducer, AUTH_PAGE_STORE_KEY } from './pages/auth-page';
 // import { mapPageReducer, MAP_PAGE_STORE_KEY } from './pages/map-page';
 import { POSITION_STORE_KEY, coordinatesReducer } from './modules/coordinates';
+import { USERS_STORE_KEY, usersReducer } from './modules/users';
 
 export interface IApplicationState {
-
+  [POSITION_STORE_KEY]: any,
+  [RECEIVER_PAGE_STORE_KEY]: any,
+  [SPINNER_STORE_KEY]: any,
+  [AUTH_PAGE_STORE_KEY]: any,
+  [USERS_STORE_KEY]: any,
 };
 
 export const reducers = combineReducers({
@@ -16,5 +21,5 @@ export const reducers = combineReducers({
   [RECEIVER_PAGE_STORE_KEY]: ReceiverPageReducer,
   [SPINNER_STORE_KEY]: spinnerReducer,
   [AUTH_PAGE_STORE_KEY]: AuthPageReducer,
-  // form: formReducer,
+  [USERS_STORE_KEY]: usersReducer,
 });

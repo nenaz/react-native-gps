@@ -13,10 +13,13 @@ export class ReceiverPageRow extends React.PureComponent<IReceiverPageRow> {
   handlefollowUser = () => {
     const { user } = this.props;
     const params: TFollowUserParams = {
-      id: get(user, '_id'),
+      _id: get(user, '_id'),
       login: get(user, 'login', ''),
       username: get(user, 'username'),
-      coordinates: user.coordinates,
+      coordinates: {
+        latitude: user.coordinates.lat,
+        longitude: user.coordinates.lon,
+      },
     };
 
     this.props.handleObserveUser(params);

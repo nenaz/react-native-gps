@@ -7,6 +7,8 @@ import {
   StatusBar,
   ActivityIndicator,
   StyleSheet,
+  ImageBackground,
+  Text,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Input } from 'react-native-elements';
@@ -14,6 +16,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { auhtStyles } from './auth-page-styles';
 import { AuthRegistrationView } from './views/auth-registration-view';
 import { Spinner } from '../../modules/spinner';
+import { ImageTest } from './views/images';
+// import atanas from './atanas';
 
 interface TAuthPage {
   onPressButton: () => void,
@@ -28,9 +32,11 @@ interface TAuthPage {
 
 export class AuthPage extends React.PureComponent<TAuthPage> {
   render() {
+    // const source={atanas};
     return (
       <View style={auhtStyles.container}>
         <Spinner />
+        {/* <ImageTest /> */}
         <Input
           placeholder='Login1'
           containerStyle={auhtStyles.inputContainerStyle}
@@ -57,8 +63,6 @@ export class AuthPage extends React.PureComponent<TAuthPage> {
         />
         <AuthRegistrationView
           onRegistrationHandler={this.props.onRegistrationHandler}
-          handleSpinnerShow={this.props.handleSpinnerShow}
-          handleSpinnerHide={this.props.handleSpinnerHide}
         />
       </View>
     );
@@ -74,7 +78,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     opacity: .6,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   horizontal: {
     flexDirection: 'row',

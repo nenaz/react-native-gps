@@ -37,6 +37,7 @@ import { AppRoutesNavigator } from './src/routes';
 
 // @ts-ignore 
 const App: () => React$Node = () => {
+  console.log('{{{***store***}}}', store.getState());
   return (
     <>
       <StatusBar />

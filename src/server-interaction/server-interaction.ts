@@ -1,6 +1,9 @@
 // import { getAuthToken } from '@/modules/auth';
 // import { createF7Alert } from '@/modules/alert';
 import { deployMode } from '../config';
+import { store } from '../store';
+import { spinnerShow, spinnerHide } from '../modules/spinner';
+
 // import { setAuthToken } from '../modules/auth';
 
 export const Send = (name: string, params = {}, type = 'POST') => {
@@ -8,6 +11,7 @@ export const Send = (name: string, params = {}, type = 'POST') => {
     ? 'https://gps-mongo-server.herokuapp.com/'
     : 'http://127.0.0.1:5000/';
   console.log('serverUrl', serverUrl);
+  // store.dispatch(spinnerShow());
   return fetch(`${serverUrl}${name}`, {
       method: type,
       mode: 'cors',
@@ -23,6 +27,9 @@ export const Send = (name: string, params = {}, type = 'POST') => {
     })
     .catch((error: any) => {
       console.log('error', error);
+    })
+    .finally(() => {
+      // store.dispatch(spinnerHide());
     });
 };
 

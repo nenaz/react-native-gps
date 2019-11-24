@@ -1,10 +1,15 @@
 import * as React from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import { View, StyleSheet, Button, Text, Dimensions } from 'react-native';
+import {
+  View, StyleSheet, Text, Dimensions, TouchableOpacity,
+} from 'react-native';
 import { Input, Icon } from 'react-native-elements';
+// import { stopWatchPosition } from '../../modules/coordinates';
 
 interface TMapPage {
   coordinates?: any,
+  isWatching?: boolean,
+  stopWatchPosition?: any,
   // gpsButtonDisabled: boolean,
   // fetchCoordinates: () => void,
   // stopCoordinates: () => void,
@@ -13,19 +18,60 @@ interface TMapPage {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    height: 100,
-    width: 400,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    // height: 100,
+    // width: 400,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
-    position: 'relative',
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    padding: 10,
-    // top: -300,
+    // position: 'relative',
+    // flex: 1,
+    // width: '100%',
+    // height: '100%',
+    // padding: 10,
   },
- });
+  bubble: {
+    flex: 1,
+    backgroundColor: "rgba(255,255,255,0.7)",
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20
+  },
+  latlng: {
+    width: 200,
+    alignItems: "stretch"
+  },
+  button: {
+    width: 80,
+    paddingHorizontal: 12,
+    alignItems: "center",
+    marginHorizontal: 10
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    marginVertical: 20,
+    backgroundColor: "transparent"
+  }
+});
+
+
+// const styles = StyleSheet.create({
+//   container: {
+//     ...StyleSheet.absoluteFillObject,
+//     height: 100,
+//     width: 400,
+//   },
+//   map: {
+//     ...StyleSheet.absoluteFillObject,
+//     position: 'relative',
+//     flex: 1,
+//     width: '100%',
+//     height: '100%',
+//     padding: 10,
+//     // top: -300,
+//   },
+//  });
 
  export class MapPage extends React.PureComponent<TMapPage> {
   state = {
@@ -46,6 +92,7 @@ const styles = StyleSheet.create({
   render() {
     const {
       coordinates,
+      isWatching,
       // fetchCoordinates,
       // gpsButtonDisabled,
       // stopCoordinates,
@@ -56,10 +103,10 @@ const styles = StyleSheet.create({
       <View
         style={{
           ...styles.container,
-          height: this.state.mapViewHeight,
-          width: this.state.mapViewWidth,
+          // height: this.state.mapViewHeight,
+          // width: this.state.mapViewWidth,
         }}
-        onLayout={this.layoutHandle}
+        // onLayout={this.layoutHandle}
       >
           <MapView
             style={styles.map}
@@ -73,22 +120,44 @@ const styles = StyleSheet.create({
             minZoomLevel={10}
             maxZoomLevel={18}
             showsCompass={true}
-            // showsMyLocationButton={true}
-            // showsScale={true}
+            showsMyLocationButton={true}
+            showsScale={true}
+            toolbarEnabled={true}
           >
             <Marker coordinate={{
               latitude: coordinates.latitude,
               longitude: coordinates.longitude,
             }}>
-              {/* <View style={{backgroundColor: "red", padding: 10}}>
-                <Text >SF</Text>
-              </View> */}
-              <Icon name="navigation" />
+              <Icon name="navigation" style={{
+                color: '#fff',
+                backgroundColor: '#fff',
+                borderColor: '#fff'
+              }} />
             </Marker>
           </MapView>
-          {/* <Input
-            placeholder="Password"
-          /> */}
+          {isWatching && (
+            <View style={{
+              position: 'absolute',
+              top: 10,
+              right: 10,
+            }}>
+              <Icon
+                type='material'
+                name="remove-red-eye" style={{
+                color: '#fff'
+              }} />
+            </View>
+          )}
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={[styles.bubble, styles.button]}
+              onPress={this.props.stopWatchPosition}
+            >
+              <Text>
+                {`${coordinates.latitude} - ${coordinates.longitude}`}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
     );
   }

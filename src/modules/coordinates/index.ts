@@ -8,6 +8,11 @@ export {
   fetchCurrentPosition,
   startWatchPosition,
   stopWatchPosition,
+  setObservePosition,
 } from './coordinates-actions';
 export { coordinatesReducer } from './coordinates-reducer';
-export { getPosition } from './coordinates-selectors';
+export {
+  getPosition,
+  getObservePosition,
+  getWatchId,
+} from './coordinates-selectors';

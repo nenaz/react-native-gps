@@ -8,3 +8,8 @@ export const getCurrentPosition = createSelector(
   mapPageState,
   (state: any): any => get(state, 'currentPosition')
 );
+
+export const getWatchPos = createSelector(
+  mapPageState,
+  (pageState: any): number => get(pageState, 'watchId')
+);

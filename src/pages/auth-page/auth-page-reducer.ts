@@ -9,7 +9,7 @@ export const AuthPageReducer = (state: any = INITIAL_STATE, action: any) => {
     case AUTH_USER:
       return ({
         ...state,
-        auth: payload,
+        ...payload,
       })
     default:
       return state;

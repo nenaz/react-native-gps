@@ -11,11 +11,11 @@ export interface IUser {
 };
 
 export type TFollowUserParams = {
-  id: string,
+  _id: string,
   login: string,
   username: string,
   coordinates: {
-    lat: number,
-    lon: number,
+    latitude: number,
+    longitude: number,
   },
 };

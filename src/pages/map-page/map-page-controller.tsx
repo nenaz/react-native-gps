@@ -1,13 +1,31 @@
 import * as React from 'react';
+// import { useState, useEffect } from "react";
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { wsConnection } from '../../server-websocket';
-import { fetchCurrentPosition, getPosition } from '../../modules/coordinates';
+import {
+  fetchCurrentPosition,
+  getPosition,
+  setObservePosition,
+  getObservePosition,
+  startWatchPosition,
+  stopWatchPosition,
+  getWatchId,
+} from '../../modules/coordinates';
+import { getUserRole, getUserRoleIsAdmin, getActiveUserIsWatching } from '../../modules/users';
 import { MapPage } from './map-page';
 
 interface TMapPageController {
   fetchCurrentPosition: () => void,
+  startWatchPosition: () => void,
+  stopWatchPosition: () => void,
   currentPosition: any,
+  navigation: any,
+  getUserRole: string,
+  userRoleIsAdmin: boolean,
+  observePosition: any,
+  isWatching: boolean,
+  watchPos: number,
 };
 
 class MapPageComponent extends React.PureComponent<TMapPageController> {
@@ -15,7 +33,7 @@ class MapPageComponent extends React.PureComponent<TMapPageController> {
   count = 0.0001;
   state = {
     coordinates: {
-      longitude: 55,
+      longitude: 5,
       latitude: 55,
     },
     gpsButtonDisabled: false,
@@ -32,12 +50,21 @@ class MapPageComponent extends React.PureComponent<TMapPageController> {
   componentDidMount() {
     this.ws = wsConnection.wsConnect('user');
     this.ws.on('message', (message: any) => {
-      console.log('message', message);
+      // console.log('message', message);
     });
-    this.props.fetchCurrentPosition();
+    
+    if (this.props.userRoleIsAdmin) {
+      this.props.fetchCurrentPosition();
+    }
   }
 
-  // fetchCoordinates = () => {
+  fetchCoordinates = () => {
+    console.log('fetchCoordinates')
+    const { userRoleIsAdmin, startWatchPosition } = this.props;
+    if (userRoleIsAdmin) {
+      startWatchPosition();
+    }
+    
   //   const position = getCurrentPosition();
 
   //   this.setState({ gpsButtonDisabled: true });
@@ -59,7 +86,7 @@ class MapPageComponent extends React.PureComponent<TMapPageController> {
   //     });
   //     this.count += 0.0001;
   //   }, 2000);
-  // };
+  };
   
   // stopCoordinates = () => {
   //   clearInterval(this.intervarGetGPS);
@@ -68,9 +95,23 @@ class MapPageComponent extends React.PureComponent<TMapPageController> {
 
   render() {
     console.log('this.props', this.props);
+    console.log('this.props.watchPos', this.props.watchPos);
+    const {
+      userRoleIsAdmin,
+      currentPosition,
+      observePosition,
+      isWatching,
+      stopWatchPosition,
+    } = this.props;
+    const coordinaties = userRoleIsAdmin
+      ? observePosition
+      : currentPosition;
+
     return (
       <MapPage
-        coordinates={this.props.currentPosition}
+        coordinates={coordinaties}
+        isWatching={isWatching}
+        stopWatchPosition={stopWatchPosition}
         // fetchCoordinates={this.fetchCoordinates}
         // gpsButtonDisabled={this.state.gpsButtonDisabled}
         // stopCoordinates={this.stopCoordinates}
@@ -81,10 +122,18 @@ class MapPageComponent extends React.PureComponent<TMapPageController> {
 
 const mapStateToProps = createStructuredSelector({
   currentPosition: getPosition,
+  userRole: getUserRole,
+  userRoleIsAdmin: getUserRoleIsAdmin,
+  observePosition: getObservePosition,
+  isWatching: getActiveUserIsWatching,
+  watchPos: getWatchId,
 });
 
 const mapDispatchToProps = {
   fetchCurrentPosition,
+  setObservePosition,
+  startWatchPosition,
+  stopWatchPosition,
 };
 
 export const MapPageController = connect(

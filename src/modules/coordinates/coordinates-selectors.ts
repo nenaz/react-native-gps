@@ -9,6 +9,11 @@ export const getPosition = createSelector(
   (state: any): any => get(state, 'currentPosition')
 );
 
+export const getObservePosition = createSelector(
+  getPositionState,
+  (state: any): any => get(state, 'observePosition')
+);
+
 export const getWatchId = createSelector(
   getPositionState,
   (state: any): number => get(state, 'watchId')
